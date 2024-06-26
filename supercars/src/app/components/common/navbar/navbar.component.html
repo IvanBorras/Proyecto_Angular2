@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-md  bg-body-tertiary">
+    <div class="container-fluid">
+      <h2 class="navbar-brand" href="#">Supercars</h2>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
+          </li>
+
+          @if(authService.user === null){
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/signup">Signup</a>
+            </li>
+          }
+          @else {
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Área privada
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" routerLink="/me/my-bookings">Mis reservas</a></li>
+                <li><a class="dropdown-item" routerLink="/me/my-info">Mi información</a></li>
+           
+              </ul>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" (click)="authService.deleteUser()">Logout</button>
+            </li>
+          }
+          
+         
+        </ul>
+      </div>
+    </div>
+  </nav>
