@@ -14,6 +14,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class LoginComponent {
   form!: FormGroup
+  errorMessage: string = '';
 
   constructor(private builder: FormBuilder,
     private authService: AuthService,
@@ -31,13 +32,20 @@ export class LoginComponent {
     this.authService.login(email, pass).subscribe({
       next: (response)=>{
         const loginResponse: LoginResponse = response as LoginResponse
-        const user: User = { token: loginResponse.token, id: loginResponse.id}
+        const user: User = { token: loginResponse.token, id: loginResponse.id, role: loginResponse.role}
         this.authService.saveUser(user)
         this.router.navigateByUrl("/")
       },
       error: ()=>{
+        this.errorMessage = 'Usuario o contraseña incorrectos';
+        console.error('Error de login:', this.errorMessage);
         
       }
     })
   }
+
+  
 }
+
+
+

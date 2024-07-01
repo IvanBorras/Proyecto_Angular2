@@ -11,17 +11,11 @@ const userController = {
         try {
             const { name, email, password } = req.body;
 
-            // Verificar si el usuario que realiza el registro es administrador
-            // Esto es un ejemplo básico, asegúrate de implementar autenticación y autorización adecuadas
-            if (req.user.role !== 'admin') {
-                return res.status(403).json({ message: 'No tienes permiso para registrar nuevos usuarios como administradores.' });
-            }
-
             const newUser = new User({
                 name,
                 email,
                 password: password,
-                role: role || 'user'  // Por defecto, los usuarios registrados tendrán el rol 'user'
+                role: 'user'
             });
 
             await newUser.save();
@@ -48,7 +42,7 @@ const userController = {
             }
 
             const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-            res.status(200).json({ message: 'Login exitoso', token, id: user._id });
+            res.status(200).json({ message: 'Login exitoso', token, id: user._id, role: user.role});
         } catch (error) {
             res.status(500).json({ message: 'Error en el login', error: error.message });
         }

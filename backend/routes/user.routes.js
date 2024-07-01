@@ -16,8 +16,8 @@ router.post('/login', userController.login);
 router.patch('/update/:userId', protect, userController.updateProfile);
 
 
-// Ruta para actualizar rol del usuario (solo accesible para administradores)
-router.patch('/role/:userId', protect, restrictTo('admin'), userController.updateUserRole);
+// // Ruta para actualizar rol del usuario (solo accesible para administradores)
+router.patch('/role/:adminId', protect, restrictTo('admin'), userController.updateUserRole);
 
 
 module.exports = router;

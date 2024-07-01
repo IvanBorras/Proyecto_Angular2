@@ -47,4 +47,8 @@ export class AuthService {
     this.user = null
     this.cookieService.delete("user")
   }
+
+  isUserAdmin(): boolean {
+    return this.user?.role === 'admin';
+  }
 }
